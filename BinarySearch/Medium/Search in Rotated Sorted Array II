@@ -1,0 +1,48 @@
+// https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+
+class Solution {
+    
+    public boolean binarySearch(int start, int end, int[] nums, int target){
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] == target){
+                return true;
+            }
+            if(nums[mid] == nums[start] && nums[mid] == nums[end]){
+                start ++;
+                end --;
+                continue;
+            }
+
+            // left half is sorted
+            if(nums[start] <= nums[mid]){
+                if(nums[start] <= target && target <= nums[mid]){
+                    end = mid - 1;
+                }else{
+                    start = mid + 1;
+                }
+            }
+
+            // right half is sorted
+            else{
+                if(nums[mid] <= target && target <= nums[end]){
+                    start = mid + 1;
+                }else{
+                    end = mid - 1;
+                }  
+            }
+        }
+        return false;
+    }
+
+    public boolean search(int[] nums, int target) {
+        int len = nums.length;
+        if(len == 1){
+            if(nums[0] != target) return false;
+            else return true;
+        }
+        boolean ans = false;
+        ans = binarySearch(0,len-1,nums,target);
+        return ans;
+    }
+}
