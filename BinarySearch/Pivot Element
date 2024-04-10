@@ -1,0 +1,42 @@
+Pivot Element - from where your next numbers are ascending
+rotated Binary Search
+For Unique Elements
+
+array = [3, 4, 5, 6, 7, 0, 1, 2]
+         0  1  2  3  4  5  6  7
+
+only descending array - [7, 0]
+                         4  5
+
+start = 0
+end = array.length - 1;
+
+
+case - 1 : if mid is at index 4 and we have descending array [7, 0] --- array[mid] > array[mid + 1] ----- pivot : mid
+case - 2 : if mid is at index 5 and we have descending array [7, 0] --- array[mid] < array[mid - 1] ----- pivot : mid -1
+case - 3: if array[start] >= array[mid] ---- end = mid - 1 // because all the numbers after mid index would be smaller than mid , so pivot will lie in left half of array.
+case - 4: else start = mid + 1
+
+
+public int pivotele(int[] nums, int len){
+        int start = 0;
+        int end = len - 1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+
+            // descending array containing [Array largest element, Array smallest Element]
+            if(mid < end && nums[mid] > nums[mid + 1]) return mid;
+            else if(mid > start && nums[mid] < nums[mid - 1]) return mid - 1;
+            
+            // pivot at left side
+            else if(nums[mid] <= nums[start]){
+                end = mid - 1;
+            }
+
+            // pivot at right side
+            else{
+                start = mid + 1;
+            }
+        }
+        return -1;
+  }
