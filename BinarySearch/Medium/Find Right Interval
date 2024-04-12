@@ -1,0 +1,104 @@
+// https://leetcode.com/problems/find-right-interval/
+
+Problem - find index of second task which can be started just at the same moment or after the completion of first task.
+
+Better Approach then Brute Force - 
+
+class Solution {
+public:
+   
+    static bool cmp(const vector<int>& a, const vector<int>& b){
+        return a[0] < b[0];
+    }
+    vector<int> findRightInterval(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        map<vector<int>,int>mp;
+        for(int i = 0; i < n; i++){
+            mp.insert({intervals[i],i});  // for getting order of intervals
+        }
+
+        sort(intervals.begin(), intervals.end(), cmp);  // sorting intervals based on end time
+        
+        vector<int> res(n,-1);
+        int ans = INT_MAX;
+
+        for(int i = 0; i < n; i++){
+            int val = INT_MAX;
+            for(int j = i; j < n; j++){
+                if(intervals[i][1] <= intervals[j][0]){
+                    if(val > intervals[j][0]){
+                        val = intervals[j][0];
+                        ans = min(ans, mp[intervals[j]]);
+                    }
+                }
+            }
+            int index = mp[intervals[i]];
+            if(ans != INT_MAX){
+                res[index] = ans;
+                ans = INT_MAX;
+            }
+        }
+
+        return res;
+        
+    }
+};
+
+
+
+
+
+// Optimal Solution
+
+
+class Solution {
+public:
+
+    vector<int> binarySearch(int endTime, vector<vector<int>>& intervals, int index){
+        int n = intervals.size();
+        vector<int>ans(2, INT_MAX);
+        if(intervals[n-1][0] < endTime) return ans; // if last task is also starting earlier then end time
+        int start = index;
+        int end = n - 1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+
+            //we need to minimise the start time so we should move in left part of array
+            if(intervals[mid][0] >= endTime){
+                ans[0] = intervals[mid][0];
+                ans[1] = intervals[mid][1]; 
+                end = mid - 1;
+            }   
+
+            // task has already started we need to look for greater starting time task
+            else start = mid + 1;
+        }
+        return ans;  // returning exact interval of task which just starts at same moment or just after completion of same endTime task
+    }
+   
+    // static bool cmp(const vector<int>& a, const vector<int>& b){
+    //     return a[0] < b[0];
+    // }
+    vector<int> findRightInterval(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        map<vector<int>,int>mp;
+        for(int i = 0; i < n; i++){
+            mp.insert({intervals[i],i});
+        }
+
+        sort(intervals.begin(), intervals.end());
+        
+        vector<int> res(n,-1);
+        int ans = INT_MAX;
+
+        for(int i = 0; i < n; i++){
+            vector<int> ans = binarySearch(intervals[i][1], intervals, i);
+            if(ans[0] != INT_MAX && ans[1] != INT_MAX){
+                res[mp[intervals[i]]] = mp[ans];
+            }
+        }
+
+        return res;
+        
+    }
+};
