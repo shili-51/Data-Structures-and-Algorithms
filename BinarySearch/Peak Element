@@ -1,5 +1,10 @@
 Peak Element - Element which is just greater than its neighbour elements
 
+either - left (asc) , pivot, right (desc)
+or - left (desc), pivot, right (asc)
+
+
+
 public int peakElement(int [] nums){
      int start = 0;
      int end = nums.length - 1;
