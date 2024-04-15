@@ -1,0 +1,13 @@
+For Pivot Questions
+
+elements befor pivot and after [pivot] will always be in ascending order.
+
+
+
+
+
+For Peak Questions
+
+if left is sorted in ascending [peak] right in descending order
+                     OR
+if left is sorted in descending [peak] right in ascending order
