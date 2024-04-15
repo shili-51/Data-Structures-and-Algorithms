@@ -2,6 +2,9 @@ Pivot Element - from where your next numbers are ascending
 rotated Binary Search
 For Unique Elements
 
+
+pivot - left (asc) ,pivot , right (asc)
+
 array = [3, 4, 5, 6, 7, 0, 1, 2]
          0  1  2  3  4  5  6  7
 
