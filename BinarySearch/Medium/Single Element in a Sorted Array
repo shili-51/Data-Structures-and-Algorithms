@@ -26,3 +26,51 @@ class Solution {
         return nums[start];
     }
 }
+
+
+
+
+
+
+
+
+
+////////// C++ Solution 
+
+int singleNonDuplicate(vector<int>& arr)
+{
+	int n = arr.size();
+	if(arr[0] != arr[1]) return arr[0];
+	else if(arr[n-1] != arr[n-2]) return arr[n-1];
+	int start = 1;
+	int end = n - 1;
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if((arr[mid] != arr[mid - 1]) && (arr[mid] != arr[mid + 1])){
+			return arr[mid];
+		}else if(mid%2 == 0){
+
+			// if on left side of array (even, odd)
+			if(arr[mid] == arr[mid + 1]){
+				start = mid + 1;
+			} 
+
+			// if on right side of array (odd, even) arr[even] = arr[even-1]
+			else{
+				end = mid - 1;
+			}
+		} else{
+
+			// left side
+			if(arr[mid] == arr[mid - 1]){
+				start = mid + 1;
+			}
+
+			// right side
+			else{
+				end = mid - 1;
+			}
+		}
+	}
+	return -1;
+}
