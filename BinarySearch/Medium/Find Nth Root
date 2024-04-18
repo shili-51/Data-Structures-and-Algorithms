@@ -1,0 +1,30 @@
+// https://www.naukri.com/code360/problems/nth-root-of-m_1062679?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+int mult(int mid, int times,int num){
+  long long int res = 1;
+  while(times>0){
+    res = res * mid;
+    if(res>num) return 2;  // if res * mid becomes greater than number whose nth root we need to find, no need to run for loop further
+    times --;
+  }
+  if(res == num) return 1;
+  else return 0;
+}
+
+int NthRoot(int n, int m) {
+  // Write your code here.
+  int start = 1;
+  int end = m;
+  while(start <= end){
+    int mid = start + (end - start)/2;
+    int val = mult(mid,n,m);
+    if(val == 1){
+      return mid;
+    }else if(val == 0){
+      start = mid + 1;
+    }else{
+      end = mid - 1;
+    }
+  }
+return -1;
+}
