@@ -1,0 +1,49 @@
+// https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+
+class Solution {
+public:
+    bool bouquetPossible(vector<int>& bloomDay,int curr_day, int req_bouquet, int k){
+        int i = 0, j = 0;
+        int curr_bouquet = 0;
+        while(i < bloomDay.size() && j < bloomDay.size()){
+             // flower is bloomed
+            if(bloomDay[j] <= curr_day){
+                int win_size = j - i + 1;
+                if(win_size == k){
+                    curr_bouquet ++;
+                    i = j + 1;;
+                    j++;
+                }  
+                else if(win_size < k){
+                    j++;
+                }else{
+                    i = j;
+                }
+            }  
+            else{
+                i = j + 1;
+                j++;
+            }
+        }
+        return curr_bouquet >= req_bouquet;
+
+    }
+
+
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int start = *min_element(bloomDay.begin(), bloomDay.end());
+        int end = *max_element(bloomDay.begin(), bloomDay.end());
+        // if(bouquetPossible(bloomDay,end,m,k) == false) return -1;
+        int ans = -1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            if(bouquetPossible(bloomDay,mid,m,k) == true){
+                ans = mid;
+                end = mid - 1;
+            }else{
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
