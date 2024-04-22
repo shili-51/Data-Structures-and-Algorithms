@@ -1,6 +1,6 @@
 // https://www.naukri.com/code360/problems/selection-sort_624469?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
 
-
+Selection Sort -  find max element from (0-n-1) and place at last index, find max element from (0 - n-2) place at second last index and so on.
 int max_element(int start, int end, vector<int>&arr){
     int maxi = start;
     for(int i = start; i<=end; i++){
