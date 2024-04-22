@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+
+class Solution {
+public:
+    int daysToShip(vector<int>& weights, int tempshipweight, int req_days){
+        int n = weights.size();
+
+        // for case when any of weight to be shipped is greater than assumed temporary ship weight
+        for(int z = 0; z<n; z++){
+            if(tempshipweight < weights[z]) return -1;
+        }
+        int calculated_days = 0;
+        int i = 0;
+        int j = 1; 
+        int curr_weight = 0;
+        while(i<n && j<n){
+            curr_weight = weights[i];  
+            if(curr_weight <= tempshipweight){
+                while(j<n && curr_weight < tempshipweight){
+                    curr_weight += weights[j];
+                    if(curr_weight > tempshipweight) j--;
+                    j++;
+                }
+                calculated_days++;
+            }
+            curr_weight = 0;
+            i = j;
+            j = i + 1;
+            if(i<n && j >= n) {
+                calculated_days++;
+                break;
+            }
+        }
+        return calculated_days;
+    }
+
+
+    int shipWithinDays(vector<int>& weights, int days) {
+        int start = *min_element(weights.begin(), weights.end());
+        int n = weights.size();
+        int end = 0;
+        for(int i=0; i<n; i++) end += weights[i];
+        int ans = -1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            int val = daysToShip(weights,mid,days);
+
+            // if days returned from mid > days, we need to decrease weight to match calculated days with required days
+            if(val!=-1 && val <= days){
+                ans = mid;
+                end = mid - 1;
+            }
+            
+            // if days returned from mid < days, increase weight to match required days
+            else{
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
