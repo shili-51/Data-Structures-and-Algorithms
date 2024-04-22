@@ -1,6 +1,7 @@
 // https://www.naukri.com/code360/problems/bubble-sort_624380?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf
 
-Bubble Sort
+Bubble Sort - compare all adjacents and place largest element and at last index and fix this index, then compare all adjacent elements
+from 0 till n-2 and place correct element at second last index , then compare all adjacents from 0 till n-3 and so on.
 
 void bubbleSort(vector<int>& arr, int n) 
 {
