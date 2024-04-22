@@ -1,0 +1,23 @@
+// https://www.naukri.com/code360/problems/selection-sort_624469?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+
+int max_element(int start, int end, vector<int>&arr){
+    int maxi = start;
+    for(int i = start; i<=end; i++){
+        if(arr[i] > arr[maxi]){
+            maxi = i;
+        }
+    }
+    return maxi;
+}
+
+void selectionSort(vector<int>&arr) {
+    // Write your code here.
+    int n = arr.size();
+    for(int i = 0; i < n; i++){
+        int max_index = max_element(0, n-i-1,arr);
+        int temp = arr[n-i-1];
+        arr[n-i-1] = arr[max_index];
+        arr[max_index] = temp;
+    }
+}
