@@ -1,0 +1,24 @@
+// https://www.naukri.com/code360/problems/insertion-sort_624381?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=SUBMISSION
+
+Worst Case - O(N^2)
+Best Case - O(N)
+
+Insertion Sort - make sure all elements before j are sorted, when j+1 th element comes, if arr[j-1] > arr[j] swap and make left hand
+side of j index sorted
+
+void insertionSort(int arr[], int n)
+{
+    //write your code here
+    for(int i=0; i<n-1; i++){
+        for(int j = i+1; j > 0; j--){
+            if(arr[j] < arr[j-1]){
+                int temp = arr[j-1];
+                arr[j-1] = arr[j];
+                arr[j] = temp;
+            }
+            else{
+                break;
+            }
+        }
+    }
+}
