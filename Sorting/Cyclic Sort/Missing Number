@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/missing-number/
+
+Cycle Sort - if array is of size n and array contains elements from 1 to n.
+Defination - Iterate in array and pick each array element and place that in its correct position, 
+till the current index doesnot contain correct element.
+
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int i = 0;
+        int n = nums.size();
+        // Cyclic Sort
+        while(i<n){
+            int correct = nums[i];
+            if(nums[i]<n && nums[i] != nums[correct]){
+                int temp = nums[i];
+                nums[i] = nums[correct];
+                nums[correct] = temp;
+            }else{
+                i++;
+            }
+        }
+        // sort(nums.begin(), nums.end());
+
+        for(int index=0; index<n; index++){
+            cout<<nums[index];
+        }
+
+        for(int index=0; index<n; index++){
+            if(nums[index] != index){
+                return index;
+            }
+        }
+        return n;
+    }
+};
