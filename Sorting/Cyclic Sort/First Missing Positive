@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/first-missing-positive/
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        
+        // Ignore Negative numbers in array
+        // Ignore elements greater than nums.size()
+        long long n = nums.size();
+        long long i = 0;
+        while(i < n){
+            // int int_correct = (int)correct;
+            if(nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]){
+                long long correct = nums[i] - 1;
+                long long temp = nums[i];
+                nums[i] = nums[correct];
+                nums[correct] = temp;
+            }
+            else{
+                i++;
+            }
+        }
+
+        for(long long j=0; j<n; j++){
+            if(nums[j] != j+1){
+                return (int)j+1; // j+1 is correct element to be present on j index
+            }
+        }
+
+        return (int)n+1; //in case array contains [0,1,2,3,4] => n+1=5 smallest missing number
+    }
+};
