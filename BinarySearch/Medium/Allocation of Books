@@ -1,0 +1,56 @@
+// https://www.naukri.com/code360/problems/allocate-books_1090540?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=PROBLEM
+
+int allocationPossible(vector<int>& arr,int potentialPagesAllocation){
+    int cntStudents = 1;
+    long long curr_pages = 0;
+
+    for(int i=0; i<arr.size();i++){
+
+        // pages can be allocated
+        if(curr_pages + arr[i] <= potentialPagesAllocation){
+            curr_pages += arr[i];
+        }
+
+        // need more students to allocate books at current allocation
+        else{
+            cntStudents ++;
+            curr_pages = arr[i];
+        }
+    }
+    
+    return cntStudents;
+}
+
+
+
+int findPages(vector<int>& arr, int n, int m) {
+    // Write your code here.
+
+    // if no of books < no of students, allocation of atleast 1 book not possible
+    if(n<m) return -1; 
+
+    // there is a choice to student h can hold any book from array, 
+    // if he had taken minimum pages book he will not be able to choose any other book
+    int start = *max_element(arr.begin(), arr.end());
+
+    // if there is only 1 student - max number of pages allocated to him
+    int end = 0;
+    for(int i=0; i<arr.size(); i++){
+        end += arr[i];
+    }
+
+    while(start <= end){
+        int mid = start + (end - start)/2;
+        int cntStudents = allocationPossible(arr,mid);
+
+        // if more students are required for mid number of Book Pages, allocate more book pages to each student so
+        // increase pages and shift to right side of mid
+        if( cntStudents > m){
+            start = mid + 1;
+        }else{
+            end = mid - 1;
+        }
+    }
+
+    return start;
+}
