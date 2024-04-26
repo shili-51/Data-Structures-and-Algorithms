@@ -1,0 +1,52 @@
+// https://leetcode.com/problems/split-array-largest-sum/
+
+class Solution {
+public:
+    bool midSumPossible(vector<int>& nums, int sum, int partitions){
+        int curr_sum = 0;
+        int curr_partition = 1;
+        for(int i=0; i<nums.size(); i++){
+            curr_sum += nums[i];
+            if(curr_sum > sum){
+                curr_sum = nums[i];
+                curr_partition++;
+            }
+            if(curr_partition > partitions) return false;
+        }
+        return true;
+    }
+
+
+
+    int splitArray(vector<int>& nums, int k) {
+
+        // if number of partitions more than array size
+        if(k > nums.size()) return -1;
+
+        // if k == nums.size()
+        // largest subarray sum would be largest value in array
+        int start = *max_element(nums.begin(), nums.end());
+
+        // if k == 1
+        // largest subarray sum would be sum of entire array
+        int end = 0;
+        for(int i=0; i < nums.size(); i++){
+            end += nums[i];
+        }
+
+        while(start <= end){
+            int mid = start + (end - start)/2;
+
+            // minimize the largest sum so end = mid - 1;
+            if(midSumPossible(nums,mid,k) == true){
+                end = mid - 1;
+            }else{
+                start = mid + 1;
+            }
+        }
+        
+        // start will point to ans on changing polarity
+        return start;
+
+    }
+};
