@@ -1,0 +1,45 @@
+// https://www.naukri.com/code360/problems/painter-s-partition-problem_1089557?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+bool PaintersSufficeToPaintMid(vector<int> &boards, int paintBoards, int painters){
+    int curr_boards = 0;
+    int curr_painters = 1;
+    for(int i=0; i < boards.size(); i++){
+        curr_boards += boards[i];
+        if(curr_boards > paintBoards){
+            curr_boards = boards[i];
+            curr_painters = curr_painters + 1;
+        }
+        if(curr_painters > painters) return false;
+    }
+    return true;
+}
+
+int findLargestMinDistance(vector<int> &boards, int k)
+{
+    // no of painters > no of boards available
+    if(k > boards.size()) return -1;
+    
+    // same as split largest array sum - minimise largest subrray sum
+    // max time required to paint all boards if painters = no of boards
+    int start = *max_element(boards.begin(),boards.end());
+
+    // if only one painter is there - to paint all boards = sum(arr.begin(), arr.end())
+    int end = 0;
+    for(int i=0; i<boards.size(); i++){
+        end += boards[i];
+    }
+
+    while(start <= end){
+        int mid = start + (end - start)/2;
+
+        // minimise the time to paint
+        if(PaintersSufficeToPaintMid(boards, mid, k) == true){
+            end = mid - 1;
+        }else{
+            start = mid + 1;
+        }
+    }
+
+    return start;
+
+}
