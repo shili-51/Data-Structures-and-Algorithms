@@ -1,0 +1,55 @@
+// https://www.naukri.com/code360/problems/k-th-element-of-2-sorted-array_1164159?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+#include<bits/stdc++.h>
+int kthElement(vector<int>& nums1, vector<int>& nums2, int n1, int n2, int k){
+    if(n1 > n2) return kthElement(nums2,nums1,n2,n1,k);
+
+    // elements on left side of array, making k | n-k partition
+    int left = k;
+
+
+    // Binary Search on smaller array to get time complexity O(log(min(m,n)))
+
+    // if k > n2, pick atleast k-n2 elements from smaller array with size n1
+    int start = max(0, k-n2); 
+    
+    // if k < n1, we dont need to pick all elements from smaller array
+    int end = min(k,n1);
+
+        while(start <= end){
+            int mid1 = start + (end - start)/2;
+            int mid2 = left - mid1;  // elements taken from second array
+
+            // l1 and l2 maximum elements from left
+            int l1 = INT_MIN, l2 = INT_MIN;
+
+            // r1 and r2 minimum elements from right
+            int r1 = INT_MAX, r2 = INT_MAX;
+
+            if(mid1 < n1) r1 = nums1[mid1];
+            if(mid2 < n2) r2 = nums2[mid2];
+            if(mid1 - 1 >= 0) l1 = nums1[mid1 - 1];
+            if(mid2 - 1 >= 0) l2 = nums2[mid2 - 1];
+
+            // all elements at left are smaller than right for both arrays
+            if(l1 <= r2 && l2 <= r1){
+
+                // as first partition is made such that it always contains k elements
+                return max(l1,l2);
+           
+            }
+
+
+            // greater element is on left for smaller size array
+            // need to pick less elements from smaller array
+
+            else if(l1 > r2) end = mid1 - 1;
+
+
+            // pick more elements from smaller array
+            // greater elements on left from larger size array
+
+            else start = mid1 + 1;
+        }
+        return 0;
+}
