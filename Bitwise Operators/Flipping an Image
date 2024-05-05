@@ -1,0 +1,17 @@
+// https://leetcode.com/problems/flipping-an-image/
+
+// Xor - inverts the bits
+
+class Solution {
+public:
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
+        for(int row=0; row < image.size(); row++){
+            for(int col = 0; col < (image[0].size() + 1)/2; col++){
+                int temp = image[row][col] ^ 1;
+                image[row][col] = image[row][image[0].size() - col - 1] ^ 1;
+                image[row][image[0].size() - col - 1] = temp;
+            }   
+        }
+        return image;
+    }
+};
