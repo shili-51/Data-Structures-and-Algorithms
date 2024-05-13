@@ -1,0 +1,28 @@
+// https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=longest-sub-array-with-sum-k
+
+int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+
+        int res = 0;
+        unordered_map<int,int>mp;
+        int pre_sum = 0;
+        for(int i = 0; i < N; i++){
+            pre_sum += A[i];
+
+            // if we got exact sum
+            if(pre_sum == K){
+                res = i + 1;
+            }
+
+            // if at any point sum has become 0
+            else if(mp.find(pre_sum - K) != mp.end()){
+                res = max(res, i - mp[pre_sum - K]);
+            }
+
+            // hash sum at each step
+            if(mp.find(pre_sum) == mp.end()){
+                mp[pre_sum] = i;
+            }
+        }
+        return res;
+    } 
