@@ -1,0 +1,23 @@
+// https://leetcode.com/problems/move-zeroes/
+
+############## Place count0 at index where we find first 0 in an array, then continue swapping index containing 0s with indexes containing non zero elements
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int count0 = -1;
+        for(int j = 0; j < nums.size(); j++){
+            if(nums[j] != 0){
+                if(count0 != -1){
+                    swap(nums[j], nums[count0]);
+                    count0++;
+                }
+            } else{
+                if(count0 == -1){
+                    count0 = j;
+                }
+            }
+        }
+        
+    }
+};
