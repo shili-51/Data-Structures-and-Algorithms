@@ -1,6 +1,6 @@
 // https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
 
-// priority queue for considering shortest distance each time checking for neighbouring nodes
+// priority queue for considering shortest distance each time checking for neighbouring nodes - not the optimised One
 
 
 vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
