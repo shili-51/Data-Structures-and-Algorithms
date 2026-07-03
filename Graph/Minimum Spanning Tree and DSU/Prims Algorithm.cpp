@@ -1,5 +1,6 @@
 
 // greedy approach to consider nodes with minimum weight first
+// Minimize the cost of connecting all the nodes
 
     int spanningTree(int V, vector<vector<int>> adj[])
     {
