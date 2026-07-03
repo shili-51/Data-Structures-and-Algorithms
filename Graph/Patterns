@@ -1,0 +1,17 @@
+| If the problem says...                    | Use                                             |
+| ----------------------------------------- | ----------------------------------------------- |
+| Traverse graph / count components         | DFS / BFS                                       |
+| Shortest path in unweighted graph         | BFS                                             |
+| Shortest path with positive weights       | Dijkstra                                        |
+| Shortest path with negative weights       | Bellman-Ford                                    |
+| Shortest path between every pair          | Floyd-Warshall                                  |
+| Connect all nodes with minimum total cost | MST (Prim/Kruskal)                              |
+| Detect cycle in undirected graph          | DFS / BFS / DSU                                 |
+| Detect cycle in directed graph            | DFS (Recursion Stack) / Kahn                    |
+| Ordering with prerequisites               | Topological Sort                                |
+| Merge groups dynamically                  | DSU                                             |
+| Check bipartite                           | BFS / DFS Coloring                              |
+| Bridges / Critical Connections            | Tarjan                                          |
+| Strongly Connected Components             | Kosaraju / Tarjan                               |
+| Euler Path (use every edge once)          | Hierholzer                                      |
+| Max Flow / Matching                       | Ford-Fulkerson / Edmonds-Karp (rare interviews) |
